@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= item ? "Edit Item" : "New Item" %></title>
+  </head>
+  <body>
+    <h1><%= item ? "Edit Item" : "New Item" %></h1>
+
+    <form action="<%= item ? '/items/' + item.id : '/items' %>" method="POST">
+      <label>Category:
+        <select name="category_id" required>
+          <% categories.forEach(cat => { %>
+            <option value="<%= cat.id %>" <%= item && item.category_id === cat.id ? "selected" : "" %>>
+              <%= cat.name %>
+            </option>
+          <% }) %>
+        </select>
+      </label><br/>
+
+      <label>Name: <input type="text" name="name" value="<%= item ? item.name : '' %>" required></label><br/>
+      <label>Brand: <input type="text" name="brand" value="<%= item ? item.brand : '' %>"></label><br/>
+
+      <label>Condition:
+        <select name="condition" required>
+          <option value="New" <%= item && item.condition === "New" ? "selected" : "" %>>New</option>
+          <option value="Good" <%= item && item.condition === "Good" ? "selected" : "" %>>Good</option>
+          <option value="Needs Repair" <%= item && item.condition === "Needs Repair" ? "selected" : "" %>>Needs Repair</option>
+        </select>
+      </label><br/>
+
+      <label>Availability:
+        <select name="availability" required>
+          <option value="Free" <%= item && item.availability === "Free" ? "selected" : "" %>>Free</option>
+          <option value="In Use" <%= item && item.availability === "In Use" ? "selected" : "" %>>In Use</option>
+          <option value="Reserved" <%= item && item.availability === "Reserved" ? "selected" : "" %>>Reserved</option>
+        </select>
+      </label><br/>
+
+      <label>Notes: <textarea name="notes"><%= item ? item.notes : '' %></textarea></label><br/>
+      <label>Image URL: <input type="text" name="image_url" value="<%= item ? item.image_url : '' %>"></label><br/>
+
+      <button type="submit"><%= item ? "Update" : "Create" %></button>
+    </form>
+  </body>
+</html>

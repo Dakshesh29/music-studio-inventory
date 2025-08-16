@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New Category</title>
+  </head>
+  <body>
+    <h1>Create New Category</h1>
+    <form action="/categories" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" name="name" required />
+
+      <br /><br />
+
+      <label for="description">Description:</label>
+      <textarea name="description"></textarea>
+
+      <br /><br />
+
+      <button type="submit">Create</button>
+    </form>
+  </body>
+</html>

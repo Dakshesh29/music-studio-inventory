@@ -3,6 +3,8 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import db from "./db/index.js";
+import categoryRoutes from "./src/routes/categoryRoutes.js";
+import itemRoutes from "./src/routes/itemRoutes.js";
 
 dotenv.config();
 
@@ -14,7 +16,9 @@ const __dirname = path.dirname(__filename);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/categories", categoryRoutes);
 
+app.use("/items", itemRoutes);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 

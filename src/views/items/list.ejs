@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Items</title>
+  </head>
+  <body>
+    <h1>All Items</h1>
+
+    <a href="/items/new">+ Add Item</a>
+
+    <ul>
+      <% items.forEach(item => { %>
+      <li>
+        <strong><%= item.name %></strong> (<%= item.brand %>) - <%=
+        item.condition %>, <%= item.availability %> [Category: <%=
+        item.category_name %>] |
+        <a href="/items/<%= item.id %>/edit">Edit</a>
+        |
+        <form
+          action="/items/<%= item.id %>/delete"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit" onclick="return confirm('Delete this item?')">
+            Delete
+          </button>
+        </form>
+      </li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
