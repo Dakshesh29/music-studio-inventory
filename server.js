@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import db from "./src/config/db.js";
+import db from "./db/index.js";
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 
 app.get("/db-test", async (req, res) => {
   try {
-    const result = await db.raw("SELECT NOW()");
+    const result = await db.query("SELECT NOW()");
     res.json({ success: true, time: result.rows[0] });
   } catch (err) {
     console.error(err);
@@ -32,7 +32,7 @@ app.get("/db-test", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
 });
