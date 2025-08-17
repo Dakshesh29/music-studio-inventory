@@ -3,6 +3,11 @@
 <head><title>New Booking</title></head>
 <body>
   <h1>Create Booking</h1>
+
+  <% if (error) { %>
+    <p style="color:red;"><%= error %></p>
+  <% } %>
+
   <form action="/bookings/new" method="POST">
     <label>Item:</label>
     <select name="item_id" required>
