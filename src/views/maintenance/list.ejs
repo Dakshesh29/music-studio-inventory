@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Maintenance Logs</title>
+  </head>
+  <body>
+    <h1>Maintenance Logs</h1>
+    <a href="/items/<%= itemId %>/maintenance/new">Add Maintenance Log</a>
+    <ul>
+      <% logs.forEach(log => { %>
+      <li>
+        Serviced At: <%= log.serviced_at.toDateString() %> | Next Due: <%=
+        log.next_service_due ? log.next_service_due.toDateString() : 'N/A' %> |
+        Notes: <%= log.notes %>
+        <a href="/maintenance/<%= log.id %>/edit">Edit</a>
+        <form
+          action="/maintenance/<%= log.id %>/delete"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+      <% }) %>
+    </ul>
+  </body>
+</html>

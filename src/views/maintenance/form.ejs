@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= log ? "Edit" : "New" %> Maintenance Log</title>
+  </head>
+  <body>
+    <h1><%= log ? "Edit" : "New" %> Maintenance Log</h1>
+    <form
+      action="<%= log ? `/maintenance/${log.id}/update` : `/items/${itemId}/maintenance` %>"
+      method="POST"
+    >
+      <label>Serviced At:</label>
+      <input
+        type="date"
+        name="serviced_at"
+        value="<%= log ? log.serviced_at.toISOString().split('T')[0] : '' %>"
+        required
+      />
+      <br />
+      <label>Next Service Due:</label>
+      <input
+        type="date"
+        name="next_service_due"
+        value="<%= log && log.next_service_due ? log.next_service_due.toISOString().split('T')[0] : '' %>"
+      />
+      <br />
+      <label>Notes:</label>
+      <textarea name="notes"><%= log ? log.notes : '' %></textarea>
+      <br />
+      <button type="submit">Save</button>
+    </form>
+  </body>
+</html>
