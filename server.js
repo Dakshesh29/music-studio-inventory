@@ -6,6 +6,7 @@ import db from "./db/index.js";
 import categoryRoutes from "./src/routes/categoryRoutes.js";
 import itemRoutes from "./src/routes/itemRoutes.js";
 import maintenanceRoutes from "./src/routes/maintenanceRoutes.js";
+import bookingRoutes from "./src/routes/bookingRoutes.js";
 
 dotenv.config();
 
@@ -21,6 +22,8 @@ app.use("/categories", categoryRoutes);
 
 app.use("/items", itemRoutes);
 app.use("/", maintenanceRoutes);
+app.use("/bookings", bookingRoutes);
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 

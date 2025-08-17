@@ -13,22 +13,20 @@
       <li>
         <strong><%= item.name %></strong> (<%= item.brand %>) - <%=
         item.condition %>, <%= item.availability %> [Category: <%=
-        item.category_name %>] |
-
-        <a href="/items/<%= item.id %>/edit">✏️ Edit</a> |
-
+        item.category_name %>] | <a href="/items/<%= item.id %>/edit">Edit</a> |
         <form
           action="/items/<%= item.id %>/delete"
           method="POST"
           style="display: inline"
         >
           <button type="submit" onclick="return confirm('Delete this item?')">
-            🗑 Delete
+            Delete
           </button>
         </form>
         |
-
         <a href="/maintenance/<%= item.id %>">🛠 Maintenance Logs</a>
+        |
+        <a href="/bookings/new?item_id=<%= item.id %>">📅 Reserve</a>
       </li>
       <% }) %>
     </ul>
