@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head><title>New Booking</title></head>
+<head>
+  <title>New Booking</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
 <body>
+  <%- include("../partials/header") %>
+
   <h1>Create Booking</h1>
 
   <% if (typeof error !== 'undefined' && error) { %>
-    <p style="color:red;"><%= error %></p>
+    <p class="error"><%= error %></p>
   <% } %>
 
-  <form action="/bookings/new" method="POST">
-    <label>Item:</label>
+  <form class="form" action="/bookings/new" method="POST">
+    <label>Instrument</label>
     <select name="item_id" required>
       <% items.forEach(i => { %>
         <option value="<%= i.id %>" <%= (String(selectedItemId) === String(i.id)) ? 'selected' : '' %>>
@@ -17,21 +22,17 @@
         </option>
       <% }) %>
     </select>
-    <br/>
 
-    <label>Your Name:</label>
-    <input type="text" name="user_name" required />
-    <br/>
+    <label>Your Name</label>
+    <input type="text" name="user_name" required/>
 
-    <label>Start Time:</label>
-    <input type="datetime-local" name="start_time" required />
-    <br/>
+    <label>Start Time</label>
+    <input type="datetime-local" name="start_time" required/>
 
-    <label>End Time:</label>
-    <input type="datetime-local" name="end_time" required />
-    <br/>
+    <label>End Time</label>
+    <input type="datetime-local" name="end_time" required/>
 
-    <button type="submit">Reserve</button>
+    <button class="btn" type="submit">Reserve</button>
   </form>
 </body>
 </html>

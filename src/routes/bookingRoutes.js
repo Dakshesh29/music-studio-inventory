@@ -1,16 +1,23 @@
 import express from "express";
-import bookingController from "../controllers/bookingController.js";
+import {
+  autoUpdateStatuses,
+  listBookings,
+  newBookingForm,
+  createBooking,
+  editBookingForm,
+  updateBooking,
+  deleteBooking,
+} from "../controllers/bookingController.js";
 
 const router = express.Router();
 
-router.get("/", bookingController.listBookings);
+router.use(autoUpdateStatuses);
 
-router.get("/new", bookingController.newBookingForm);
-router.post("/new", bookingController.createBooking);
-
-router.get("/:id/edit", bookingController.editBookingForm);
-router.post("/:id/edit", bookingController.updateBooking);
-
-router.post("/:id/delete", bookingController.deleteBooking);
+router.get("/", listBookings);
+router.get("/new", newBookingForm);
+router.post("/new", createBooking);
+router.get("/:id/edit", editBookingForm);
+router.post("/:id/edit", updateBooking);
+router.post("/:id/delete", deleteBooking);
 
 export default router;

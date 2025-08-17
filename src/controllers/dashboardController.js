@@ -8,7 +8,7 @@ export const dashboard = async (_req, res) => {
       LEFT JOIN bookings b ON b.item_id = i.id
       GROUP BY i.id
       ORDER BY usage_count DESC, i.name ASC
-      LIMIT 7
+      LIMIT 5
     `);
 
     const categories = await db.query(`
@@ -19,7 +19,7 @@ export const dashboard = async (_req, res) => {
       ORDER BY c.name ASC
     `);
 
-    const upcomingMaintenance = await db.query(`
+    const maintenance = await db.query(`
       SELECT i.name, m.next_service_due
       FROM items i
       JOIN maintenance_logs m ON m.item_id = i.id
@@ -31,7 +31,7 @@ export const dashboard = async (_req, res) => {
     res.render("dashboard", {
       topItems: topItems.rows,
       categories: categories.rows,
-      maintenance: upcomingMaintenance.rows,
+      maintenance: maintenance.rows,
     });
   } catch (err) {
     console.error(err);

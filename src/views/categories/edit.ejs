@@ -1,22 +1,52 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Edit Category</title>
+    <title>Categories</title>
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
-    <h1>Edit Category</h1>
-    <form action="/categories/<%= category.id %>" method="POST">
-      <label for="name">Name:</label>
-      <input type="text" name="name" value="<%= category.name %>" required />
+    <header class="nav">
+      <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/categories">Categories</a>
+        <a href="/items">Items</a>
+        <a href="/bookings">Bookings</a>
+      </nav>
+    </header>
 
-      <br /><br />
+    <h1>Music Studio Categories</h1>
 
-      <label for="description">Description:</label>
-      <textarea name="description"><%= category.description %></textarea>
+    <a href="/categories/new" class="btn">+ Add Category</a>
 
-      <br /><br />
+    <ul class="list">
+      <% categories.forEach(cat => { %>
+      <li class="list-item">
+        <div>
+          <strong><%= cat.name %></strong>
+          <span class="badge"><%= cat.description %></span>
+        </div>
+        <div>
+          <a href="/categories/<%= cat.id %>/edit" class="btn info">✏️ Edit</a>
+          <form
+            action="/categories/<%= cat.id %>/delete"
+            method="POST"
+            style="display: inline"
+          >
+            <button
+              type="submit"
+              class="btn danger"
+              onclick="return confirm('Delete this category?')"
+            >
+              Delete
+            </button>
+          </form>
+        </div>
+      </li>
+      <% }) %>
+    </ul>
 
-      <button type="submit">Update</button>
-    </form>
+    <% if (categories.length === 0) { %>
+    <p class="error">No categories found. Add one above.</p>
+    <% }
   </body>
 </html>

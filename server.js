@@ -19,21 +19,21 @@ const __dirname = path.dirname(__filename);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/categories", categoryRoutes);
 
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "src/views"));
+
+app.use("/categories", categoryRoutes);
 app.use("/items", itemRoutes);
 app.use("/", maintenanceRoutes);
 app.use("/bookings", bookingRoutes);
 app.use("/dashboard", dashboardRoutes);
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "src/views"));
-
 app.get("/", (req, res) => {
-  res.send("Music Studio Inventory App is running with ES Modules!");
+  res.redirect("/dashboard");
 });
 
-app.get("/db-test", async (req, res) => {
+app.get("/db-test", async (_req, res) => {
   try {
     const result = await db.query("SELECT NOW()");
     res.json({ success: true, time: result.rows[0] });

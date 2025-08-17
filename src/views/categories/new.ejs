@@ -2,21 +2,28 @@
 <html>
   <head>
     <title>New Category</title>
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
+    <header class="nav">
+      <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/categories">Categories</a>
+        <a href="/items">Items</a>
+        <a href="/bookings">Bookings</a>
+      </nav>
+    </header>
+
     <h1>Create New Category</h1>
-    <form action="/categories" method="POST">
+
+    <form action="/categories" method="POST" class="form">
       <label for="name">Name:</label>
       <input type="text" name="name" required />
 
-      <br /><br />
-
       <label for="description">Description:</label>
-      <textarea name="description"></textarea>
+      <textarea name="description" rows="4"></textarea>
 
-      <br /><br />
-
-      <button type="submit">Create</button>
+      <button type="submit" class="btn">Create</button>
     </form>
   </body>
 </html>

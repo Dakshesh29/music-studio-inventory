@@ -2,43 +2,59 @@
 <html>
   <head>
     <title>Items</title>
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
+    <%- include("../partials/header") %>
+
     <h1>All Items</h1>
 
-    <form method="GET" action="/items" style="margin-bottom: 1rem">
+    <form class="form-inline" method="GET" action="/items">
       <input
         type="text"
         name="search"
         value="<%= typeof search !== 'undefined' ? search : '' %>"
         placeholder="Search by name or brand"
       />
-      <button type="submit">Search</button>
-      <a href="/items">Reset</a>
+      <button class="btn" type="submit">Search</button>
+      <a class="link" href="/items">Reset</a>
     </form>
 
-    <a href="/items/new">+ Add Item</a>
+    <a class="btn" href="/items/new">Add Item</a>
 
-    <ul>
+    <ul class="list">
       <% items.forEach(item => { %>
-      <li>
-        <strong><%= item.name %></strong> (<%= item.brand %>) - <%=
-        item.condition %>, <%= item.availability %> [Category: <%=
-        item.category_name %>] | <a href="/items/<%= item.id %>/edit">Edit</a> |
-        <form
-          action="/items/<%= item.id %>/delete"
-          method="POST"
-          style="display: inline"
-        >
-          <button type="submit" onclick="return confirm('Delete this item?')">
-            🗑 Delete
-          </button>
-        </form>
-        | <a href="/maintenance/<%= item.id %>">🛠 Maintenance Logs</a> |
-        <a href="/bookings/new?item_id=<%= item.id %>">Reserve</a>
+      <li class="list-item">
+        <div>
+          <strong><%= item.name %></strong> (<%= item.brand %>) — <%=
+          item.condition %>, <%= item.availability %> [Category: <%=
+          item.category_name %>]
+        </div>
+        <div>
+          <a class="link" href="/items/<%= item.id %>/edit">Edit</a>
+          <form
+            action="/items/<%= item.id %>/delete"
+            method="POST"
+            style="display: inline"
+          >
+            <button
+              class="btn danger"
+              type="submit"
+              onclick="return confirm('Delete this item?')"
+            >
+              Delete
+            </button>
+          </form>
+          <a class="link" href="/maintenance/<%= item.id %>"
+            >🛠 Maintenance Logs</a
+          >
+          <a class="link" href="/bookings/new?item_id=<%= item.id %>"
+            >Reserve</a
+          >
+        </div>
       </li>
       <% }) %> <% if (items.length === 0) { %>
-      <li>No items found.</li>
+      <li class="list-item">No items found.</li>
       <% } %>
     </ul>
   </body>

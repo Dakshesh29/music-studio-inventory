@@ -2,37 +2,45 @@
 <html>
   <head>
     <title>Bookings</title>
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
+    <%- include("../partials/header") %>
+
     <h1>All Bookings</h1>
-    <a href="/bookings/new">+ New Booking</a>
-    <ul>
+    <a class="btn" href="/bookings/new">+ New Booking</a>
+
+    <ul class="list">
       <% bookings.forEach(b => { %>
-      <li>
-        <strong><%= b.item_name %></strong> — <%= b.user_name %>
-        <br />
-        <small>
-          <%= new Date(b.start_time).toLocaleString() %> → <%= new
-          Date(b.end_time).toLocaleString() %>
-        </small>
-        <br />
-        Status: <%= b.status %> |
-        <a href="/bookings/<%= b.id %>/edit">Edit</a>
-        |
-        <form
-          action="/bookings/<%= b.id %>/delete"
-          method="POST"
-          style="display: inline"
-        >
-          <button
-            type="submit"
-            onclick="return confirm('Cancel this booking?')"
+      <li class="list-item">
+        <div>
+          <strong><%= b.item_name %></strong> — <%= b.user_name %><br />
+          <small>
+            <%= new Date(b.start_time).toLocaleString() %> → <%= new
+            Date(b.end_time).toLocaleString() %>
+          </small>
+        </div>
+        <div>
+          <span class="badge"><%= b.status %></span>
+          <a class="link" href="/bookings/<%= b.id %>/edit">Edit</a>
+          <form
+            action="/bookings/<%= b.id %>/delete"
+            method="POST"
+            style="display: inline"
           >
-            Delete
-          </button>
-        </form>
+            <button
+              class="btn danger"
+              type="submit"
+              onclick="return confirm('Delete this booking?')"
+            >
+              Delete
+            </button>
+          </form>
+        </div>
       </li>
-      <% }) %>
+      <% }) %> <% if (bookings.length === 0) { %>
+      <li class="list-item">No bookings yet.</li>
+      <% } %>
     </ul>
   </body>
 </html>
