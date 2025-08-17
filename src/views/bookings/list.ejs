@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Items</title>
+    <title>Bookings</title>
   </head>
   <body>
-    <h1>All Items</h1>
-
-    <a href="/items/new">+ Add Item</a>
-
+    <h1>All Bookings</h1>
+    <a href="/bookings/new">+ New Booking</a>
     <ul>
-      <% items.forEach(item => { %>
+      <% bookings.forEach(b => { %>
       <li>
-        <strong><%= item.name %></strong> (<%= item.brand %>) - <%=
-        item.condition %>, <%= item.availability %> [Category: <%=
-        item.category_name %>] | <a href="/items/<%= item.id %>/edit">Edit</a> |
+        <strong><%= b.item_name %></strong> — <%= b.user_name %>
+        <br />
+        <small>
+          <%= new Date(b.start_time).toLocaleString() %> → <%= new
+          Date(b.end_time).toLocaleString() %>
+        </small>
+        <br />
+        Status: <%= b.status %> |
+        <a href="/bookings/<%= b.id %>/edit">Edit</a>
+        |
         <form
-          action="/items/<%= item.id %>/delete"
+          action="/bookings/<%= b.id %>/delete"
           method="POST"
           style="display: inline"
         >
-          <button type="submit" onclick="return confirm('Delete this item?')">
+          <button
+            type="submit"
+            onclick="return confirm('Cancel this booking?')"
+          >
             Delete
           </button>
         </form>
-        |
-        <a href="/maintenance/<%= item.id %>">🛠 Maintenance Logs</a>
-        |
-        <a href="/bookings/new?item_id=<%= item.id %>">📅 Reserve</a>
       </li>
       <% }) %>
     </ul>

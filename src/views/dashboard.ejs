@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <h1>Usage Stats Dashboard</h1>
+
+    <section>
+      <h2>Most Used Instruments</h2>
+      <canvas id="topItemsChart"></canvas>
+    </section>
+
+    <section>
+      <h2>Inventory by Category</h2>
+      <canvas id="categoryChart"></canvas>
+    </section>
+
+    <section>
+      <h2>Upcoming Maintenance</h2>
+      <ul>
+        <% if (maintenance.length > 0) { %> <% maintenance.forEach(m => { %>
+        <li>
+          <strong><%= m.name %></strong> — due on <%= new
+          Date(m.next_service_due).toDateString() %>
+        </li>
+        <% }) %> <% } else { %>
+        <li>No upcoming maintenance</li>
+        <% } %>
+      </ul>
+    </section>
+
+    <script>
+      const topItemsLabels = JSON.parse(
+        "<%- JSON.stringify(topItems.map(r => r.name)) %>"
+      );
+      const topItemsData = JSON.parse(
+        "<%- JSON.stringify(topItems.map(r => Number(r.usage_count))) %>"
+      );
+
+      const categoryLabels = JSON.parse(
+        "<%- JSON.stringify(categories.map(r => r.name)) %>"
+      );
+      const categoryData = JSON.parse(
+        "<%- JSON.stringify(categories.map(r => Number(r.item_count))) %>"
+      );
+
+      new Chart(document.getElementById("topItemsChart"), {
+        type: "bar",
+        data: {
+          labels: topItemsLabels,
+          datasets: [
+            {
+              label: "Bookings",
+              data: topItemsData,
+              backgroundColor: "rgba(54, 162, 235, 0.6)",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+          },
+        },
+      });
+
+      new Chart(document.getElementById("categoryChart"), {
+        type: "pie",
+        data: {
+          labels: categoryLabels,
+          datasets: [
+            {
+              label: "Items",
+              data: categoryData,
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.6)",
+                "rgba(54, 162, 235, 0.6)",
+                "rgba(255, 206, 86, 0.6)",
+                "rgba(75, 192, 192, 0.6)",
+                "rgba(153, 102, 255, 0.6)",
+                "rgba(255, 159, 64, 0.6)",
+              ],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: "right" },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

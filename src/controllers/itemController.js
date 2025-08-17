@@ -2,13 +2,16 @@ import db from "../../db/index.js";
 
 export const getAllItems = async (req, res) => {
   try {
-    const result = await db.query(`
-      SELECT items.*, categories.name AS category_name
-      FROM items
-      JOIN categories ON items.category_id = categories.id
-      ORDER BY items.id DESC
-    `);
-    res.render("items/list", { items: result.rows });
+    const search = (req.query.search || "").trim();
+    const q = `
+      SELECT i.*, c.name AS category_name
+      FROM items i
+      JOIN categories c ON c.id = i.category_id
+      WHERE ($1 = '' OR i.name ILIKE '%'||$1||'%' OR i.brand ILIKE '%'||$1||'%')
+      ORDER BY i.created_at DESC
+    `;
+    const result = await db.query(q, [search]);
+    res.render("items/list", { items: result.rows, search });
   } catch (err) {
     console.error("Error fetching items:", err);
     res.status(500).send("Server Error");

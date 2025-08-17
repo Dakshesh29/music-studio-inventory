@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><title>Edit Booking</title></head>
+<body>
+  <h1>Edit Booking</h1>
+
+  <form action="/bookings/<%= booking.id %>/edit" method="POST">
+    <label>Item:</label>
+    <select name="item_id" required>
+      <% items.forEach(i => { %>
+        <option value="<%= i.id %>" <%= (i.id === booking.item_id) ? 'selected' : '' %>><%= i.name %></option>
+      <% }) %>
+    </select>
+    <br/>
+
+    <label>User Name:</label>
+    <input type="text" name="user_name" value="<%= booking.user_name %>" required />
+    <br/>
+
+    <label>Start Time:</label>
+    <input type="datetime-local" name="start_time" value="<%= new Date(booking.start_time).toISOString().slice(0,16) %>" required />
+    <br/>
+
+    <label>End Time:</label>
+    <input type="datetime-local" name="end_time" value="<%= new Date(booking.end_time).toISOString().slice(0,16) %>" required />
+    <br/>
+
+    <label>Status:</label>
+    <select name="status" required>
+      <% ['Reserved','Active','Completed','Cancelled'].forEach(s => { %>
+        <option value="<%= s %>" <%= (booking.status === s) ? 'selected' : '' %>><%= s %></option>
+      <% }) %>
+    </select>
+    <br/>
+
+    <button type="submit">Update</button>
+  </form>
+</body>
+</html>
